@@ -1,16 +1,15 @@
 var express = require("express");
 var router = express.Router();
-/* const Users = require("../models/user"); */
+const Users = require("../models/Users");
 /* const bcrypt = require("bcrypt"); */
 
 router.get("/", async (req, res, next) => {
-  console.log("pega fuerte el postman");
-  /* try {
-    const users = await Users.getAll();
-    res.json(users);
+  try {
+    const user = await Users.getAll();
+    res.status(200).json(user);
   } catch (error) {
     next(error);
-  } */
+  }
 });
 
 router.get("/:email", async (req, res, next) => {

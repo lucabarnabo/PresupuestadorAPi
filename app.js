@@ -3,6 +3,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const cors = require("cors");
+const { handleError, ErrorHandler } = require("./helpers/error");
 
 require("dotenv").config();
 require("./db");
