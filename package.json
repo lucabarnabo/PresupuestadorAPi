@@ -1,0 +1,28 @@
+{
+  "name": "PresupuestadorApi",
+  "version": "1.0.0",
+  "description": "api de presupuesto automatico de uso interno Farewell",
+  "main": "www",
+  "scripts": {
+    "test": "npm run dev",
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "api"
+  ],
+  "author": "0xLuc@",
+  "license": "ISC",
+  "dependencies": {
+    "@yarn-tool/dotenv": "^2.0.14",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1"
+  }
+}
