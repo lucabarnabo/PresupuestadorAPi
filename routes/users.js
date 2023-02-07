@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const Users = require("../models/Users");
+const jwt = require("jwt-simple");
 /* const bcrypt = require("bcrypt"); */
 
 router.get("/", async (req, res, next) => {
@@ -19,5 +20,11 @@ router.get("/:email", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+});
+
+router.post("/login", async (req, res, next) => {
+  let name = req.body.username;
+  let password = req.body.password;
+  const user = await Users.login(name, password);
 });
 module.exports = router;
