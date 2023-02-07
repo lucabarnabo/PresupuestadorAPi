@@ -1,7 +1,9 @@
 const mysql = require("mysql");
 /* const bcrypt = require("bcrypt"); */
 /* const db = require("../db"); */
+const moment = require("moment");
 const { handleError, ErrorHandler } = require("../helpers/error");
+const jwt = require("jwt-simple");
 
 const db = mysql.createPool({
   hots: process.env.DB_HOST,
@@ -56,36 +58,25 @@ const insert = ({ email, password, nombre, apellido, telefono, rol_id }) => {
 };
 
 const login = async (username, password) => {
-  const user = await getByName(username);
+  let user = await getByName(username);
   if (!user) {
     return false;
   } else {
-    return await checkPassword(password, user[0].password);
+    user[0].token = await checkPassword(password, user[0]);
+    user = user[0];
+    return user;
   }
 };
 
-const checkPassword = async (password, userPassword) => {
+const checkPassword = async (password, user) => {
   /* const equals = bcrypt.compareSync (password, userPassword); */
-
-  let token = async () => {
-    if (password === userPassword) {
-      res.status(200).json({
-        token: createToken(user),
-        id: user.id,
-        rol_id: user.rol_id,
-        nombre: user.nombre,
-        apellido: user.apellido,
-        message: "Inicio de sesión correcta",
-      });
-    } else {
-      res.status(401).json("Error, nombre o contraseña no encontrados");
-    }
-  };
-  console.log(token);
-  return await token;
+  if (password === user.password) {
+    return await createToken(user);
+  }
 };
 
 const createToken = async (user) => {
+  console.log("into create token");
   let payload = {
     userId: user.id,
     createdAT: moment().unix(),
