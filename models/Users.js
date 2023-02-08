@@ -70,9 +70,14 @@ const login = async (username, password) => {
 
 const checkPassword = async (password, user) => {
   /* const equals = bcrypt.compareSync (password, userPassword); */
-  if (password === user.password) {
-    return await createToken(user);
+  console.log("into token", password === user.password);
+  if (password != user.password) {
+    return (error = {
+      code: 203,
+      message: "contraseña Incorrecta",
+    });
   }
+  return await createToken(user);
 };
 
 const createToken = async (user) => {

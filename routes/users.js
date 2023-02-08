@@ -24,24 +24,10 @@ router.get("/:email", async (req, res, next) => {
 
 router.post("/login", async (req, res, next) => {
   try {
-    const user = await Users.login(
-      req.body.username,
-      passreq.body.passwordword
-    );
-    console.log("user en ruta", user);
+    const user = await Users.login(req.body.username, req.body.password);
     res.status(200).json(user);
   } catch (error) {
     res.status(401).json(error);
   }
 });
 module.exports = router;
-
-/* res.status(200).json({
-        token: createToken(user),
-        nombre: user.nombre,
-        apellido: user.apellido,
-        message: "Inicio de sesión correcta",
-      });
-    } else {
-      res.status(401).json("Error, nombre o contraseña no encontrados");
-    } */
