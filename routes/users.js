@@ -23,8 +23,11 @@ router.get("/:email", async (req, res, next) => {
 });
 
 router.post("/login", async (req, res, next) => {
-  let name = req.body.username;
-  let password = req.body.password;
-  const user = await Users.login(name, password);
+  try {
+    const user = await Users.login(req.body.username, req.body.password);
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(401).json(error);
+  }
 });
 module.exports = router;
