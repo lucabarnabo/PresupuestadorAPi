@@ -70,7 +70,6 @@ const login = async (username, password) => {
 
 const checkPassword = async (password, user) => {
   /* const equals = bcrypt.compareSync (password, userPassword); */
-  console.log("into token", password === user.password);
   if (password != user.password) {
     return (error = {
       code: 203,
@@ -81,7 +80,6 @@ const checkPassword = async (password, user) => {
 };
 
 const createToken = async (user) => {
-  console.log("into create token");
   let payload = {
     userId: user.id,
     createdAT: moment().unix(),
