@@ -4,14 +4,10 @@ const mysql = require("mysql");
 const moment = require("moment");
 const { handleError, ErrorHandler } = require("../helpers/error");
 const jwt = require("jwt-simple");
+/* const speakeasy = require("speakeasy"); */
+/* const qrcode = require("qrcode"); */
 
-const db = mysql.createPool({
-  hots: process.env.DB_HOST,
-  user: "root",
-  password: "root",
-  port: process.env.DB_PORT,
-  database: process.env.DB_NAME,
-});
+const userController = {};
 
 const getAll = async () => {
   return new Promise((resolve, reject) => {
@@ -76,7 +72,8 @@ const checkPassword = async (password, user) => {
       message: "contraseña Incorrecta",
     });
   }
-  return await createToken(user);
+  let token = await createToken(user);
+  return token;
 };
 
 const createToken = async (user) => {
@@ -88,8 +85,58 @@ const createToken = async (user) => {
   return await jwt.encode(payload, process.env.TOKEN_KEY);
 };
 
+/* const enableTwoFactorAuthStep1 = async function (req, reply) {
+  tokenVerification.extractAndVerifyJwtToken(
+    req,
+    (err, isValidToken, email) => {
+      if (!err && isValidToken) {
+        const secret = speakeasy.generateSecret();
+        qrcode.toDataURL(secret.otpauth_url, function (err, qrImage) {
+          if (!err) {
+            reply.code(200).send({ qr: qrImage, secret: secret });
+          } else {
+            reply.internalServerError(err);
+          }
+        });
+      } else {
+        reply.unauthorized(err);
+      }
+    }
+  );
+};
+ */
+/* const enableTwoFactorAuthStep2 = async function (req, reply) {
+  tokenVerification.extractAndVerifyJwtToken(
+    req,
+    (err, isValidJwtToken, email) => {
+      if (!err && isValidJwtToken) {
+        const user = db.getUser(email);
+        if (typeof user !== "undefined") {
+          const base32secret = req.body.base32;
+          const userToken = req.body.token;
+          const verified = speakeasy.totp.verify({
+            secret: base32secret,
+            encoding: "base32",
+            token: userToken,
+          });
+          if (verified) {
+            db.enableTwoFactorAuthentication(email, base32secret);
+            reply.code(200).send({ validated: true });
+          } else {
+            reply.code(200).send({ validated: false });
+          }
+        }
+      } else {
+        reply.unauthorized(err);
+      }
+    }
+  );
+}; */
+
 module.exports = {
   insert: insert,
   getAll: getAll,
   login: login,
+  /* enableTwoFactorAuthStep1: enableTwoFactorAuthStep1,
+  enableTwoFactorAuthStep2: enableTwoFactorAuthStep2, */
 };

@@ -25,6 +25,7 @@ router.get("/:email", async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
   try {
     const user = await Users.login(req.body.username, req.body.password);
+    console.log(req.body);
     res.status(200).json(user);
   } catch (error) {
     res.status(401).json(error);

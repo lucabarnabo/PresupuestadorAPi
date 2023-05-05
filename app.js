@@ -10,7 +10,7 @@ require("./db");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-var proRouter = require("./routes/product");
+var productRouter = require("./routes/product");
 
 var app = express();
 
@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-app.use("/productos", proRouter);
+app.use("/product", productRouter);
 
 // atrapar 404 y reenviar al controlador de errores
 app.use(function (req, res, next) {

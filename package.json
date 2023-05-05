@@ -5,7 +5,7 @@
   "main": "www",
   "scripts": {
     "test": "npm run dev",
-    "start": "node ./bin/www",
+    "start": "nodemon ./bin/www",
     "dev": "nodemon ./bin/www"
   },
   "repository": {
@@ -24,8 +24,12 @@
     "express": "^4.18.1",
     "json-web-token": "^3.2.0",
     "jwt-simple": "^0.5.6",
+    "knex": "^2.4.2",
     "moment": "^2.29.4",
     "morgan": "^1.10.0",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.22",
+    "qrcode": "^1.5.1",
+    "speakeasy": "^2.0.0"
   }
 }
