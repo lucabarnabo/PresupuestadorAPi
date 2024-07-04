@@ -38,10 +38,10 @@ router.get("/comidas", async (req, res, next) => {
 
 router.post("/insert", async (req, res, next) => {
   try {
-    console.log(req.body);
     const result = await Product.insertProduct(req.body);
-    res.status(201).json(`Agregaste ${req.body.title} con exito!`);
+    res.status(201).json(`Agregaste ${req.body.name} con exito!`);
   } catch (error) {
+    console.log(error);
     next(error);
   }
 });
@@ -49,6 +49,15 @@ router.post("/insert", async (req, res, next) => {
 router.post("/update", async (req, res, next) => {
   try {
     const result = await Product.updateProduct(req.body);
+    res.status(201).json(`${req.body[0].item} Actualizado`);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post("/delete", async (req, res, next) => {
+  try {
+    const result = await Product.deleteProduct(req.body);
     res.status(201).json(`${req.body[0].item} Actualizado`);
   } catch (error) {
     next(error);

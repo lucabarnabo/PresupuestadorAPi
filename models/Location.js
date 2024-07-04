@@ -1,10 +1,10 @@
 const db = require("../db");
+const { all } = require("../routes/category");
 
 const getAll = async () => {
   return new Promise((resolve, reject) => {
-    // probar este metodo
     db.query(
-      `SELECT * FROM products  WHERE disabled IS NULL ORDER BY category_id`,
+      `SELECT * FROM locations  WHERE disabled IS NULL`,
       (err, rows) => {
         if (err) reject(err);
         resolve(rows);
@@ -58,11 +58,14 @@ const getActividades = async () => {
 };
 
 const insertProduct = async (data) => {
-  //data siempre es un objeto
-  console.log(data);
+  //data siempre es un array de objetos
+  console.log("data de insert", data);
+};
+
+const insert = async (data) => {
   return new Promise((resolve, reject) => {
     db.query(
-      `INSERT INTO products (name, desc, price, shift, location_id, category_id, supplier) VALUES ('${data.name}', '${data.desc}',${data.price},${data.shift} ,${data.location},${data.category},${data.supplier})`,
+      `INSERT INTO products (item, info, price, category_id) VALUES ('${data.item}', '${data.info}',${data.price}, ${data.category_id})`,
       (err, rows) => {
         if (err) reject(err);
         resolve(rows);
@@ -71,8 +74,6 @@ const insertProduct = async (data) => {
   }).catch((err) => {
     console.log(err);
   });
-
-
 };
 
 const updateProduct = (data) => {

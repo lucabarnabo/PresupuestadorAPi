@@ -1,14 +1,14 @@
 const mysql = require("mysql");
 /* const bcrypt = require("bcrypt"); */
-/* const db = require("../db"); */
+const db = require("../db");
 const moment = require("moment");
 const { handleError, ErrorHandler } = require("../helpers/error");
 const jwt = require("jwt-simple");
+const { use } = require("../routes/users");
 /* const speakeasy = require("speakeasy"); */
 /* const qrcode = require("qrcode"); */
 
 const userController = {};
-
 const getAll = async () => {
   return new Promise((resolve, reject) => {
     db.query(`SELECT * FROM users`, (err, rows) => {
@@ -54,6 +54,7 @@ const insert = ({ email, password, nombre, apellido, telefono, rol_id }) => {
 };
 
 const login = async (username, password) => {
+  console.log(username, password);
   let user = await getByName(username);
   if (!user) {
     return false;

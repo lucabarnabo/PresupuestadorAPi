@@ -8,9 +8,11 @@ const { handleError, ErrorHandler } = require("./helpers/error");
 require("dotenv").config();
 require("./db");
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-var productRouter = require("./routes/product");
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
+const productRouter = require("./routes/product");
+const categoryRouter = require("./routes/category")
+const locationRouter = require("./routes/location")
 
 var app = express();
 
@@ -27,6 +29,8 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/product", productRouter);
+app.use("/category", categoryRouter);
+app.use("/location", locationRouter);
 
 // atrapar 404 y reenviar al controlador de errores
 app.use(function (req, res, next) {
